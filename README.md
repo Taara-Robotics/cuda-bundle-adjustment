@@ -118,27 +118,6 @@ $ cd cuda-bundle-adjustment/build
 $ ./samples/sample_ba_from_file ../samples/ba_input/ba_kitti_00.json
 ```
 
-## How to use python bindings
-
-Build with `ENABLE_PYTHON` option and install `wheel` target.
-
-```
-$ cmake -DENABLE_PYTHON=ON ..
-$ cmake --build . --target wheel
-```
-
-Install the generated wheel file.
-
-```
-$ pip install ./cuba-*.whl
-```
-
-Then, you can use the library in python. See `python/example.py` for an example.
-
-```
-$ python python/example.py ../samples/ba_input/ba_kitti_00.json
-```
-
 <details>
 <summary>output example of sample_ba_from_file</summary>
 
@@ -222,6 +201,27 @@ Landmark    : 4.50e-13
 ```
 
 </details>
+
+## How to use python bindings
+
+Build with `ENABLE_PYTHON` option and install `wheel` target.
+
+```
+$ cmake -DENABLE_PYTHON=ON ..
+$ cmake --build . --target wheel
+```
+
+Install the generated wheel file.
+
+```
+$ pip install ./cuba-*.whl
+```
+
+Then, you can use the library in python. See `python/example.py` for an example.
+
+```
+$ python python/example.py ../samples/ba_input/ba_kitti_00.json
+```
 
 ## Author
 
