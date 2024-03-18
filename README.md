@@ -1,7 +1,9 @@
 # cuda-bundle-adjustment
+
 A CUDA implementation of Bundle Adjustment
 
 ## Description
+
 This project implements a Bundle Adjustment algorithm with CUDA.
 It optimizes camera poses and landmarks (3D points) represented by a graph.
 
@@ -25,21 +27,23 @@ The performance obtained from `sample/sample_comparison_with_g2o` is as follows.
 
 #### `Settings`
 
-Key|Value
----|---
-CPU / implementation|Core-i7 6700K(4.00 GHz) / g2o
-GPU / implementation|GeForce GTX 1080 / cuda-bundle-adjustment
-number of iterations for optimization|10
+| Key                                   | Value                                     |
+| ------------------------------------- | ----------------------------------------- |
+| CPU / implementation                  | Core-i7 6700K(4.00 GHz) / g2o             |
+| GPU / implementation                  | GeForce GTX 1080 / cuda-bundle-adjustment |
+| number of iterations for optimization | 10                                        |
 
 #### `Results`
-Input Filename|P|L|E|CPU[sec]|GPU[sec]
----|---|---|---|---|---
-ba_kitti_07.json|248|26127|95037|1.8|0.23
-ba_kitti_00.json|1332|133383|561116|11.9|1.23
+
+| Input Filename   | P    | L      | E      | CPU[sec] | GPU[sec] |
+| ---------------- | ---- | ------ | ------ | -------- | -------- |
+| ba_kitti_07.json | 248  | 26127  | 95037  | 1.8      | 0.23     |
+| ba_kitti_00.json | 1332 | 133383 | 561116 | 11.9     | 1.23     |
 
 **P**: number of poses, **L**: number of landmarks, **E**: number of edges
 
 ## Limitations
+
 Some features supported in g2o are currently simplified or not implemented.
 
 - Information matrix is represented by a scalar
@@ -48,15 +52,17 @@ Some features supported in g2o are currently simplified or not implemented.
 - Level optimization is not implemented
 
 ## Requirements
-|Package Name|Minimum Requirements|Note|
-|---|---|---|
-|CMake|version >= 3.18||
-|CUDA Toolkit|compute capability >= 6.0|
-|Eigen|version >= 3.2.0||
-|OpenCV||for sample|
-|g2o||for sample, optional|
+
+| Package Name | Minimum Requirements      | Note                 |
+| ------------ | ------------------------- | -------------------- |
+| CMake        | version >= 3.18           |                      |
+| CUDA Toolkit | compute capability >= 6.0 |
+| Eigen        | version >= 3.2.0          |                      |
+| OpenCV       |                           | for sample           |
+| g2o          |                           | for sample, optional |
 
 ## How to build
+
 ```
 $ git clone https://github.com/fixstars/cuda-bundle-adjustment.git
 $ cd cuda-bundle-adjustment
@@ -67,13 +73,15 @@ $ make
 ```
 
 ### CMake options
-|Option|Description|Default|
-|---|---|---|
-|ENABLE_SAMPLES|Build samples|`ON`|
-|WITH_G2O|Build sample with g2o|`OFF`|
-|USE_FLOAT32|Use 32bit float in internal floating-point operations|`OFF`|
-|BUILD_SHARED_LIB|Build shared library|`OFF`|
-|CUDA_ARCHS|List of architectures to generate device code for|`61;72;75;86`|
+
+| Option           | Description                                           | Default       |
+| ---------------- | ----------------------------------------------------- | ------------- |
+| ENABLE_SAMPLES   | Build samples                                         | `ON`          |
+| ENABLE_PYTHON    | Build python binding                                  | `OFF`         |
+| WITH_G2O         | Build sample with g2o                                 | `OFF`         |
+| USE_FLOAT32      | Use 32bit float in internal floating-point operations | `OFF`         |
+| BUILD_SHARED_LIB | Build shared library                                  | `OFF`         |
+| CUDA_ARCHS       | List of architectures to generate device code for     | `61;72;75;86` |
 
 With `WITH_G2O` option, you can run `sample/sample_comparison_with_g2o`.
 [g2o](https://github.com/RainerKuemmerle/g2o) needs to be installed beforehand.
@@ -98,16 +106,37 @@ $ cd cuda-bundle-adjustment/samples
 $ 7za x ba_input.7z
 ```
 
-Input Filename|Description
----|---
-ba_kitti_07.json|graph components sampled from `KITTI sequences/07` using [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2)
-ba_kitti_00.json|graph components sampled from `KITTI sequences/00` using [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2)
+| Input Filename   | Description                                                                                                |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- |
+| ba_kitti_07.json | graph components sampled from `KITTI sequences/07` using [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2) |
+| ba_kitti_00.json | graph components sampled from `KITTI sequences/00` using [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2) |
 
 Then, pass to the sample code.
 
 ```
 $ cd cuda-bundle-adjustment/build
 $ ./samples/sample_ba_from_file ../samples/ba_input/ba_kitti_00.json
+```
+
+## How to use python bindings
+
+Build with `ENABLE_PYTHON` option and install `wheel` target.
+
+```
+$ cmake -DENABLE_PYTHON=ON ..
+$ cmake --build . --target wheel
+```
+
+Install the generated wheel file.
+
+```
+$ pip install ./cuba-*.whl
+```
+
+Then, you can use the library in python. See `python/example.py` for an example.
+
+```
+$ python python/example.py ../samples/ba_input/ba_kitti_00.json
 ```
 
 <details>
@@ -149,6 +178,7 @@ iter:  8, chi2: 322572.7
 iter:  9, chi2: 321410.3
 iter: 10, chi2: 320086.4
 ```
+
 </details>
 
 <details>
@@ -190,12 +220,15 @@ Rotation    : 7.63e-16
 Translation : 4.50e-13
 Landmark    : 4.50e-13
 ```
+
 </details>
 
 ## Author
-The "adaskit Team"  
+
+The "adaskit Team"
 
 The adaskit is an open-source project created by [Fixstars Corporation](https://www.fixstars.com/) and its subsidiary companies including [Fixstars Autonomous Technologies](https://at.fixstars.com/), aimed at contributing to the ADAS industry by developing high-performance implementations for algorithms with high computational cost.
 
 ## License
+
 Apache License 2.0

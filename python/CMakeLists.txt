@@ -44,8 +44,4 @@ add_wheel(cuba
   AUTHOR "Fixstars Corporation"
   PYTHON_REQUIRES ">=3.8"
   DESCRIPTION "C++/Python library for bundle adjustment using CUDA"
-  SCRIPTS
-    example.py
-  PYTHON_PACKAGE_DIRS
-    .
 )
