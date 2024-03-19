@@ -16,7 +16,7 @@ PYBIND11_MODULE(cuba, m) {
         .. currentmodule:: cuba
         .. autosummary::
            :toctree: _generate
-           add
+           run_ba
     )pbdoc";
 
     /* 

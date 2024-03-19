@@ -15,15 +15,17 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(pybind11)
 
 # required packages
-find_package(OpenCV REQUIRED)
+# find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
 # set(SRCS_COMMON object_creator.h)
 
 
 pybind11_add_module(cuba python_bindings.cpp object_creator.h)
 target_compile_definitions(cuba PRIVATE VERSION_INFO=${CUBA_VERSION_INFO})
-target_include_directories(cuba PRIVATE ${OpenCV_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIR})
-target_link_libraries(cuba PRIVATE cuda_bundle_adjustment ${OpenCV_LIBS})
+# target_include_directories(cuba PRIVATE ${OpenCV_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIR})
+target_include_directories(cuba PRIVATE ${EIGEN3_INCLUDE_DIR})
+# target_link_libraries(cuba PRIVATE cuda_bundle_adjustment ${OpenCV_LIBS})
+target_link_libraries(cuba PRIVATE cuda_bundle_adjustment)
 
 # Fetch python-wheel
 FetchContent_Declare(
