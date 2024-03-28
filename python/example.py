@@ -20,12 +20,14 @@ intrinsics = (
 # Load camera poses
 poses_t = []
 poses_q = []
+poses_fixed = []
 pose_indices = {}
 
 for i, vertex in enumerate(data["pose_vertices"]):
     poses_t.append(vertex["t"])
     poses_q.append(vertex["q"])
     pose_indices[vertex["id"]] = i
+    poses_fixed.append(vertex["fixed"])
 
 poses_t = np.array(poses_t)
 poses_q = np.array(poses_q)

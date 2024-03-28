@@ -41,6 +41,7 @@ PYBIND11_MODULE(cuba, m) {
         std::tuple<double, double, double, double> camera_params,
         py::array_t<double> poses_t,
         py::array_t<double> poses_q,
+        py::array_t<bool> fixed_poses,
         py::array_t<double> landmarks,
         py::array_t<int> edges,
         py::array_t<double> measurements,
@@ -68,7 +69,8 @@ PYBIND11_MODULE(cuba, m) {
         for (int poseIndex = 0; poseIndex < poses_t.shape(0); poseIndex++) {
             auto t = Eigen::Vector3d(poses_t.data(poseIndex));
             auto q = Eigen::Quaterniond(poses_q.data(poseIndex));
-            auto v = obj.create<cuba::PoseVertex>(poseIndex, q, t, camera, poseIndex == 0);
+            auto fixed = *fixed_poses.data(poseIndex);
+            auto v = obj.create<cuba::PoseVertex>(poseIndex, q, t, camera, fixed);// poseIndex == 0);
             optimizer->addPoseVertex(v);
         }
 
