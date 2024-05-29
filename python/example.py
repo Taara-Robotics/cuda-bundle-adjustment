@@ -31,6 +31,7 @@ for i, vertex in enumerate(data["pose_vertices"]):
 
 poses_t = np.array(poses_t)
 poses_q = np.array(poses_q)
+poses_fixed = np.array(poses_fixed)
 
 # Load landmarks
 landmarks = []
@@ -55,7 +56,7 @@ measurements = np.array(measurements)
 
 # Run BA
 start_time = time.time()
-optimized_poses_t, optimized_poses_q, optimized_landmarks, edge_chi_squares  = cuba.run_ba(intrinsics, poses_t, poses_q, landmarks, edges, measurements, 10)
+optimized_poses_t, optimized_poses_q, optimized_landmarks, edge_chi_squares  = cuba.run_ba(intrinsics, poses_t, poses_q, poses_fixed, landmarks, edges, measurements, 10)
 
 print("BA time:", time.time() - start_time, "s")
 print(f"Poses: {len(optimized_poses_t)}, landmarks: {len(optimized_landmarks)}, edges: {len(edges)}")
